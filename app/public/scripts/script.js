@@ -1,17 +1,15 @@
-import Tile from "/scripts/Tile.js";
 import TileBrain from "/scripts/TileBrain.js";
 
 
 var fieldSizePx = window.getComputedStyle(document.documentElement).getPropertyValue('--field-size');
 var tileSizePx = window.getComputedStyle(document.documentElement).getPropertyValue('--tile-size');
 var fieldSizeCount = extractNumber(fieldSizePx, 'px') / extractNumber(tileSizePx, 'px');
-
-var tileBrain = new TileBrain();
-
-var tilesClasses = document.getElementsByClassName("tile")
-var tiles = Array.from(tilesClasses);
-tiles.fo
 var timestamp = Date.now();
+var imgPath = '/img/moonlanding.jpg';
+
+var tileBrain = new TileBrain(fieldSizeCount, imgPath);
+
+
 
 window.addEventListener("keydown", event => {
     if(!isTimingOk())

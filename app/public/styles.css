@@ -1,7 +1,7 @@
 
 :root {
     --board-size: calc(var(--field-size) + 100px);
-    --field-size: 800px;
+    --field-size: 300px;
     --tile-size: 100px;
     --trans-time: 0.1s;
 }
@@ -14,7 +14,7 @@
     position: relative;
 }
 
-#field1 {
+#field {
     background-color: lightskyblue;
     margin-top: calc((var(--board-size) - var(--field-size)) / 2);
     margin-left: calc((var(--board-size) - var(--field-size)) / 2);
@@ -22,7 +22,7 @@
     height: var(--field-size);
     position: absolute;
 } 
-#field2 {
+#switchfield {
     position: absolute;
     width: var(--tile-size);
     height: var(--tile-size);
@@ -44,7 +44,7 @@
     margin-top: calc(var(--y) * var(--tile-size));
 
     background-color: black;
-    background: url('/img/moonlanding.jpg') var(--backgroundposx) var(--backgroundposy);
+    background: url('/img/moonlanding.jpg') var(--posx) var(--posy);
     background-size: var(--field-size) var(--field-size);
 
     transition-property: margin-left, margin-top;
@@ -55,8 +55,8 @@
 .tile > img {
     z-index: -10;
     position: absolute;
-    margin-left: var(--backgroundposx);
-    margin-top: var(--backgroundposy);
+    margin-left: var(--posx);
+    margin-top: var(--posy);
     width: var(--field-size);
     height: var(--field-size);
 }
