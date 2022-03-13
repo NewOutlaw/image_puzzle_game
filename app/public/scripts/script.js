@@ -1,4 +1,4 @@
-import Tile from "./scripts/Tile.js";
+import Tile from "/scripts/Tile.js";
 
 var tiletest = new Tile();
 console.log(tiletest.getFoo());
