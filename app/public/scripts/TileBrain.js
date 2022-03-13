@@ -18,8 +18,8 @@ export default class TileBrain
             }
 
         this.#tiles.forEach(element => {
-            console.log("tileId: " + element.tileId + "\tmargin-left: " + element.marginLeft + "\tmargin-top: " + element.marginTop + 
-                "\tsolvedX: " + element.solvedX + "\tsolvedY: " + element.solvedY);
+            //console.log("tileId: " + element.tileId + "\tmargin-left: " + element.marginLeft + "\tmargin-top: " + element.marginTop + 
+            //    "\tsolvedX: " + element.solvedX + "\tsolvedY: " + element.solvedY);
 
             var outerDiv = document.createElement('div');
             outerDiv.setAttribute('class', 'tile');

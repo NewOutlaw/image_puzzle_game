@@ -1,7 +1,6 @@
 
 :root {
     --board-size: calc(var(--field-size) + 100px);
-    --field-size: 300px;
     --tile-size: 100px;
     --trans-time: 0.1s;
 }

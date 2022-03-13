@@ -1,14 +1,20 @@
 import TileBrain from "/scripts/TileBrain.js";
 
 
+var fieldLength = 10;
+var rootReadOnly = window.getComputedStyle(document.documentElement);
+var root = document.documentElement.style;
+root.setProperty('--field-size', fieldLength * parseInt(rootReadOnly.getPropertyValue('--tile-size').split('px')[0]) + 'px');
+
 var fieldSizePx = window.getComputedStyle(document.documentElement).getPropertyValue('--field-size');
 var tileSizePx = window.getComputedStyle(document.documentElement).getPropertyValue('--tile-size');
 var fieldSizeCount = extractNumber(fieldSizePx, 'px') / extractNumber(tileSizePx, 'px');
 var timestamp = Date.now();
+
 var imgPath = '/img/moonlanding.jpg';
+//var imgPath = '/img/starwars.jpg';
 
 var tileBrain = new TileBrain(fieldSizeCount, imgPath);
-
 
 
 window.addEventListener("keydown", event => {
