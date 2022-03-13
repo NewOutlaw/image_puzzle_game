@@ -1,0 +1,40 @@
+
+:root {
+    --board-size: 700px;
+    --field-size: 650px;
+    --tile-size: 100px;
+    --trans-time: 0.1s;
+}
+
+#board {
+    background-color: steelblue;
+    margin: calc(100vh / 2 - var(--board-size) / 2) auto;
+    width: var(--board-size);
+    height: var(--board-size);
+    position: relative;
+}
+
+#field1 {
+    background-color: lightskyblue;
+    margin-top: calc((var(--board-size) - var(--field-size)) / 2);
+    margin-left: calc((var(--board-size) - var(--field-size)) / 2);
+    width: var(--field-size);
+    height: var(--field-size);
+    position: absolute;
+}
+
+#tile {
+    --x: 0;
+    --y: 0;
+    position: absolute;
+    width: var(--tile-size);
+    height: var(--tile-size);
+    background-color: black;
+    margin-left: calc(var(--x) * var(--tile-size));
+    margin-top: calc(var(--y) * var(--tile-size));
+
+    transition-property: margin-left, margin-top;
+    transition-duration: var(--trans-time);
+    transition-timing-function: ease-in-out;
+}
+
