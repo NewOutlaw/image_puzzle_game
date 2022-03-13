@@ -1,7 +1,7 @@
 
 :root {
     --board-size: 700px;
-    --field-size: 650px;
+    --field-size: 600px;
     --tile-size: 100px;
     --trans-time: 0.1s;
 }
@@ -21,11 +21,21 @@
     width: var(--field-size);
     height: var(--field-size);
     position: absolute;
+} 
+#field2 {
+    background-color: lightskyblue;
+    margin-top: calc(var(--field-size) + (var(--board-size) - var(--field-size)) / 2);
+    margin-right: calc((var(--board-size) - var(--field-size)) / 2);
+    right: 0;
+    width: var(--tile-size);
+    height: var(--tile-size);
+    position: absolute;
 }
 
 #tile {
-    --x: 0;
-    --y: 0;
+    /*--x: 0;
+    --y: 0;*/
+    z-index: 10; 
     position: absolute;
     width: var(--tile-size);
     height: var(--tile-size);

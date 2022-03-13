@@ -19,16 +19,16 @@ window.addEventListener("keydown", event => {
     let y = tile.style.getPropertyValue('--y');
 
     if(event.code === 'ArrowUp')
-        if(y > 0 && isTimingOk(tile))
+        if(isTimingOk(tile) && y > 0 )
             tile.style.setProperty('--y', +y - +1);
     if(event.code === 'ArrowDown')
-        if(y < fieldSizeCount - 1 && isTimingOk(tile))
+        if(isTimingOk(tile) && (y < fieldSizeCount - 1 || x == fieldSizeCount - 1 && y == fieldSizeCount - 1))
             tile.style.setProperty('--y', +y + +1);
     if(event.code === 'ArrowLeft')
-        if(x > 0 && isTimingOk(tile))
+        if(isTimingOk(tile) && x > 0 && y < fieldSizeCount)
             tile.style.setProperty('--x', +x - +1);
     if(event.code === 'ArrowRight')
-        if(x < fieldSizeCount - 1 && isTimingOk(tile))
+        if(isTimingOk(tile) && x < fieldSizeCount - 1)
             tile.style.setProperty('--x', +x + +1);
 });
 
