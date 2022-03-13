@@ -11,8 +11,8 @@ var transTime = extractNumber(window.getComputedStyle(document.documentElement).
 
 var tile = document.getElementById("tile")
 tile.setAttribute('starttime', Date.now());
-tile.style.setProperty('--x', Math.floor(Math.random() * fieldSizeCount));
-tile.style.setProperty('--y', Math.floor(Math.random() * fieldSizeCount));
+//tile.style.setProperty('--x', Math.floor(Math.random() * fieldSizeCount));
+//tile.style.setProperty('--y', Math.floor(Math.random() * fieldSizeCount));
 
 window.addEventListener("keydown", event => {
     let x = tile.style.getPropertyValue('--x');

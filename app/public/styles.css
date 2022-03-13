@@ -1,16 +1,16 @@
 
 :root {
-    --board-size: 700px;
-    --field-size: 600px;
+    --board-size: 400px;
+    --field-size: 300px;
     --tile-size: 100px;
     --trans-time: 0.1s;
 }
 
 #board {
     background-color: steelblue;
-    margin: calc(100vh / 2 - var(--board-size) / 2) auto;
+    margin: calc(100vh / 2 - (var(--board-size) + var(--tile-size)) / 2) auto;
     width: var(--board-size);
-    height: var(--board-size);
+    height: calc(var(--board-size) + var(--tile-size));
     position: relative;
 }
 
@@ -33,15 +33,17 @@
 }
 
 #tile {
-    /*--x: 0;
-    --y: 0;*/
     z-index: 10; 
     position: absolute;
-    width: var(--tile-size);
-    height: var(--tile-size);
-    background-color: black;
+
+    width: calc(var(--tile-size));
+    height: calc(var(--tile-size));
     margin-left: calc(var(--x) * var(--tile-size));
     margin-top: calc(var(--y) * var(--tile-size));
+    
+    background-color: black;
+    background: url('/img/moonlanding.jpg') var(--bpx) var(--bpy);
+    background-size: var(--field-size) var(--field-size);
 
     transition-property: margin-left, margin-top;
     transition-duration: var(--trans-time);
