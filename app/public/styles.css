@@ -35,12 +35,13 @@
 #tile {
     z-index: 10; 
     position: absolute;
+    overflow: hidden; /*cops image to size of parent div*/
 
     width: calc(var(--tile-size));
     height: calc(var(--tile-size));
     margin-left: calc(var(--x) * var(--tile-size));
     margin-top: calc(var(--y) * var(--tile-size));
-    
+
     background-color: black;
     background: url('/img/moonlanding.jpg') var(--bpx) var(--bpy);
     background-size: var(--field-size) var(--field-size);
@@ -48,5 +49,14 @@
     transition-property: margin-left, margin-top;
     transition-duration: var(--trans-time);
     transition-timing-function: ease-in-out;
+}
+
+#tile > img {
+    z-index: -10;
+    position: absolute;
+    margin-left: var(--bpx);
+    margin-top: var(--bpy);
+    width: var(--field-size);
+    height: var(--field-size);
 }
 
