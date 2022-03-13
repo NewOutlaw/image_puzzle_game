@@ -1,42 +1,64 @@
 import Tile from "/scripts/Tile.js";
+import TileBrain from "/scripts/TileBrain.js";
 
-var tiletest = new Tile();
-console.log(tiletest.getFoo());
 
 var fieldSizePx = window.getComputedStyle(document.documentElement).getPropertyValue('--field-size');
 var tileSizePx = window.getComputedStyle(document.documentElement).getPropertyValue('--tile-size');
 var fieldSizeCount = extractNumber(fieldSizePx, 'px') / extractNumber(tileSizePx, 'px');
 
-var transTime = extractNumber(window.getComputedStyle(document.documentElement).getPropertyValue('--trans-time'), 's');
+var tileBrain = new TileBrain();
 
-var tile = document.getElementById("tile")
-tile.setAttribute('starttime', Date.now());
-//tile.style.setProperty('--x', Math.floor(Math.random() * fieldSizeCount));
-//tile.style.setProperty('--y', Math.floor(Math.random() * fieldSizeCount));
+var tilesClasses = document.getElementsByClassName("tile")
+var tiles = Array.from(tilesClasses);
+tiles.fo
+var timestamp = Date.now();
 
 window.addEventListener("keydown", event => {
-    let x = tile.style.getPropertyValue('--x');
-    let y = tile.style.getPropertyValue('--y');
+    if(!isTimingOk())
+    return;
 
     if(event.code === 'ArrowUp')
-        if(isTimingOk(tile) && y > 0 )
-            tile.style.setProperty('--y', +y - +1);
+        tiles.forEach(tile => 
+        {
+            let y = tile.style.getPropertyValue('--y');
+            if(y > 0 )
+                tile.style.setProperty('--y', +y - +1);
+        });
+
     if(event.code === 'ArrowDown')
-        if(isTimingOk(tile) && (y < fieldSizeCount - 1 || x == fieldSizeCount - 1 && y == fieldSizeCount - 1))
-            tile.style.setProperty('--y', +y + +1);
+        tiles.forEach(tile => 
+        {
+            let x = tile.style.getPropertyValue('--x');
+            let y = tile.style.getPropertyValue('--y');
+            if(y < fieldSizeCount - 1 || x == fieldSizeCount - 1 && y == fieldSizeCount - 1)
+                tile.style.setProperty('--y', +y + +1);
+        });
+
     if(event.code === 'ArrowLeft')
-        if(isTimingOk(tile) && x > 0 && y < fieldSizeCount)
-            tile.style.setProperty('--x', +x - +1);
+        tiles.forEach(tile => 
+        {
+            let x = tile.style.getPropertyValue('--x');
+            let y = tile.style.getPropertyValue('--y');
+            if(x > 0 && y < fieldSizeCount)
+                tile.style.setProperty('--x', +x - +1);
+        });
+
     if(event.code === 'ArrowRight')
-        if(isTimingOk(tile) && x < fieldSizeCount - 1)
-            tile.style.setProperty('--x', +x + +1);
+        tiles.forEach(tile => 
+        {
+            let x = tile.style.getPropertyValue('--x');
+            if(x < fieldSizeCount - 1)
+                tile.style.setProperty('--x', +x + +1);
+        });
 });
 
-function isTimingOk(tile)
-{
-    if(Date.now() - parseInt(tile.getAttribute('starttime')) >= transTime*1000)
+function isTimingOk()
+{    
+    var transTime = extractNumber(window.getComputedStyle(document.documentElement).getPropertyValue('--trans-time'), 's');
+
+    if(Date.now() - timestamp >= transTime*1000)
     {
-        tile.setAttribute('starttime', Date.now());
+        timestamp = Date.now();
         return true;
     }
     else

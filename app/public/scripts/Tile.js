@@ -1,11 +1,37 @@
 export default class Tile {
-    constructor()
+
+    #fieldSize;
+    #marginTop;
+    #marginLeft;
+    #solvedX;
+    #solvedY;
+    #currentX;
+    #currentY;
+
+    constructor(fieldSize, marginTop, marginLeft, solvedX, solvedY, currentX, currentY)
     {
-        this.foo = 'bar';
+        this.fieldSize = fieldSize;
+        this.marginTop = marginTop;
+        this.marginLeft = marginLeft;
+        this.solvedX = solvedX;
+        this.solvedY = solvedY;
+        this.currentX = currentX;
+        this.currentY = currentY;
     }
 
-    getFoo() {
-        return this.foo;
+    set setCurrentX(x)
+    {
+        this.#currentX = x;
+    }
+
+    get getCurrentX()
+    {
+        return this.#currentX;
+    }
+
+    set setCurrentY(y)
+    {
+        this.#currentY = y;
     }
 
 }

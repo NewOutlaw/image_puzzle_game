@@ -1,7 +1,7 @@
 
 :root {
-    --board-size: 400px;
-    --field-size: 300px;
+    --board-size: calc(var(--field-size) + 100px);
+    --field-size: 800px;
     --tile-size: 100px;
     --trans-time: 0.1s;
 }
@@ -23,19 +23,20 @@
     position: absolute;
 } 
 #field2 {
+    position: absolute;
+    width: var(--tile-size);
+    height: var(--tile-size);
+
     background-color: lightskyblue;
     margin-top: calc(var(--field-size) + (var(--board-size) - var(--field-size)) / 2);
     margin-right: calc((var(--board-size) - var(--field-size)) / 2);
     right: 0;
-    width: var(--tile-size);
-    height: var(--tile-size);
-    position: absolute;
 }
 
-#tile {
+.tile {
     z-index: 10; 
     position: absolute;
-    overflow: hidden; /*cops image to size of parent div*/
+    overflow: hidden; /*crops image to size of parent div*/
 
     width: calc(var(--tile-size));
     height: calc(var(--tile-size));
@@ -43,7 +44,7 @@
     margin-top: calc(var(--y) * var(--tile-size));
 
     background-color: black;
-    background: url('/img/moonlanding.jpg') var(--bpx) var(--bpy);
+    background: url('/img/moonlanding.jpg') var(--backgroundposx) var(--backgroundposy);
     background-size: var(--field-size) var(--field-size);
 
     transition-property: margin-left, margin-top;
@@ -51,11 +52,11 @@
     transition-timing-function: ease-in-out;
 }
 
-#tile > img {
+.tile > img {
     z-index: -10;
     position: absolute;
-    margin-left: var(--bpx);
-    margin-top: var(--bpy);
+    margin-left: var(--backgroundposx);
+    margin-top: var(--backgroundposy);
     width: var(--field-size);
     height: var(--field-size);
 }
