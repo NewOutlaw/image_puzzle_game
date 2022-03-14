@@ -47,8 +47,8 @@ export default class TileBrain
             }
         });
         
-        shuffledTiles.forEach(tile => console.log("tileId: " + tile.tileId + "\tcurrentX: " + tile.currentX + "\tcurrentY: " + tile.currentY + 
-           "\tsolvedX: " + tile.solvedX + "\tsolvedY: " + tile.solvedY));
+        //shuffledTiles.forEach(tile => console.log("tileId: " + tile.tileId + "\tcurrentX: " + tile.currentX + "\tcurrentY: " + tile.currentY + 
+        //   "\tsolvedX: " + tile.solvedX + "\tsolvedY: " + tile.solvedY));
     }
 
     putTilesInDocument()
@@ -75,74 +75,102 @@ export default class TileBrain
         });
     }
 
+    moveTile(eventcode)
+    {
+        if(eventcode === 'ArrowUp')
+            for(var i = 0; i < this.#tiles.length; i++)
+            {
+                let tx = this.#tiles[i].currentX;
+                let ty = this.#tiles[i].currentY;
+                let emptySpace = this.#findEmptySpace();
+                if(ty > 0 && tx == emptySpace.x && ty - 1 == emptySpace.y)
+                {
+                    this.#moveTile(this.#tiles[i].tileId, emptySpace.x, emptySpace.y);
+                    break;
+                }
+            };
+
+        if(eventcode === 'ArrowDown')
+            for(var i = 0; i < this.#tiles.length; i++)
+            {
+                //console.log("Arrow down: current tile: x" + this.#tiles[i].currentX + " y" + this.#tiles[i].currentY);
+
+                let tx = this.#tiles[i].currentX;
+                let ty = this.#tiles[i].currentY;
+                let emptySpace = this.#findEmptySpace();
+                
+                if((ty <= this.#fieldSize - 2 && tx == emptySpace.x && ty + 1 == emptySpace.y) || 
+                    (tx == this.#fieldSize - 1 && ty == this.#fieldSize - 1 && emptySpace.y == this.#fieldSize))
+                    {
+                        this.#moveTile(this.#tiles[i].tileId, emptySpace.x, emptySpace.y);
+                        break;
+                    }
+            };
+
+        if(eventcode === 'ArrowLeft')
+            for(var i = 0; i < this.#tiles.length; i++)
+            {
+                let tx = this.#tiles[i].currentX;
+                let ty = this.#tiles[i].currentY;
+                let emptySpace = this.#findEmptySpace();
+                if(tx > 0 && tx - 1 == emptySpace.x && ty == emptySpace.y)
+                {
+                    this.#moveTile(this.#tiles[i].tileId, emptySpace.x, emptySpace.y);
+                    break;
+                }
+            };
+
+        if(eventcode === 'ArrowRight') 
+            for(var i = 0; i < this.#tiles.length; i++)
+            {
+                let tx = this.#tiles[i].currentX;
+                let ty = this.#tiles[i].currentY;
+                let emptySpace = this.#findEmptySpace();
+                if(tx <= this.#fieldSize - 2 && tx + 1 == emptySpace.x && ty == emptySpace.y)
+                {
+                    this.#moveTile(this.#tiles[i].tileId, emptySpace.x, emptySpace.y);
+                    break;
+                }
+            };
+    }
+
     #findEmptySpace()
     {
-        let emptyX = -1;
-        let emptyY = -1;
+        let emptyX = this.#fieldSize - 1;
+        let emptyY = this.#fieldSize;
 
         for(let y = 0; y < this.#fieldSize; y++)
         {
             for(let x = 0; x < this.#fieldSize; x++)
             {
-                var foundtile = this.#tiles.filter(tile => tile.currentX == x && tile.currentY == y);
-                if(foundtile.length == 0)
+                var tileThere = this.#tiles.filter(tile => tile.currentX == x && tile.currentY == y);
+                if(tileThere.length == 0)
+                {
                     emptyX = x;
                     emptyY = y;
                     break;
+                }
             }
-            if(emptyX > -1)
+            if(emptyY < this.#fieldSize)
                 break;
         }
 
+        //console.log("empty space: x" + emptyX + " y" + emptyY);
         return { x: emptyX, y: emptyY};
     }
 
-    moveTile(eventcode)
+    #moveTile(tileToMoveId, toX, toY)
     {
-        if(eventcode === 'ArrowUp')
-            this.#tiles.forEach(tileToMove => 
+        //console.log("moveit: x" + toX + " y" + toY);
+        this.#tiles.forEach(tile => {
+            if(tile.tileId == tileToMoveId)
             {
-                let y = tileToMove.currentY;
-                if(y > 0 && this.#tiles.filter(maybeEmptyTile => maybeEmptyTile.currentX == tileToMove.currentX && maybeEmptyTile.currentY == tileToMove.currentY - 1) == [])
-                    this.#moveTile(tileToMove, tileToMove.currentX, tileToMove.currentY - 1);
-            });
+                tile.currentX = toX;
+                tile.currentY = toY;
+            }
+        });
 
-        if(eventcode === 'ArrowDown')
-            this.#tiles.forEach(tileToMove => 
-            {
-                let x = tileToMove.currentX;
-                let y = tileToMove.currentY;
-                let emptySpace = this.#findEmptySpace();
-                
-                if((y < this.#fieldSize - 2 && tileToMove.currentX == emptySpace.x && tileToMove.currentY + 1 == emptySpace.y) || 
-                    (x == this.#fieldSize - 1 && y == this.#fieldSize - 1 && this.#findEmptySpace().x == -1))
-                        this.#moveTile(tileToMove, tileToMove.currentX, tileToMove.currentY + 1);
-            });
-
-        if(eventcode === 'ArrowLeft')
-            this.#tiles.forEach(tileToMove => 
-            {
-                let x = tileToMove.style.getPropertyValue('--x');
-                let y = tileToMove.style.getPropertyValue('--y');
-                if(x > 0 && y < fieldSizeCount)
-                    tileToMove.style.setProperty('--x', +x - +1);
-            });
-
-        if(eventcode === 'ArrowRight')
-            this.#tiles.forEach(tileToMove => 
-            {
-                let x = tileToMove.style.getPropertyValue('--x');
-                if(x < fieldSizeCount - 1)
-                    tileToMove.style.setProperty('--x', +x + +1);
-            });
-    }
-
-    #moveTile(tileToMove, toX, toY)
-    {
-        tileToMove.currentX = toX;
-        tileToMove.currentY = toY;
-
-        let element = document.getElementById(tileToMove.tileId);
+        let element = document.getElementById(tileToMoveId);
         element.setAttribute('x', toX);
         element.setAttribute('y', toY);
         element.style = `--x: ${toX}; --y: ${toY}`;

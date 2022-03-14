@@ -18,10 +18,11 @@ var tileBrain = new TileBrain(fieldSizeCount, imgPath);
 
 
 window.addEventListener("keydown", event => {
+    
     if(!isTimingOk())
-    return;
-
-    tileBrain.moveTile(event.code);
+        return;
+    else
+        tileBrain.moveTile(event.code);
 });
 
 function isTimingOk()
