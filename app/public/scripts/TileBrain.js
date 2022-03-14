@@ -75,6 +75,79 @@ export default class TileBrain
         });
     }
 
+    #findEmptySpace()
+    {
+        let emptyX = -1;
+        let emptyY = -1;
+
+        for(let y = 0; y < this.#fieldSize; y++)
+        {
+            for(let x = 0; x < this.#fieldSize; x++)
+            {
+                var foundtile = this.#tiles.filter(tile => tile.currentX == x && tile.currentY == y);
+                if(foundtile.length == 0)
+                    emptyX = x;
+                    emptyY = y;
+                    break;
+            }
+            if(emptyX > -1)
+                break;
+        }
+
+        return { x: emptyX, y: emptyY};
+    }
+
+    moveTile(eventcode)
+    {
+        if(eventcode === 'ArrowUp')
+            this.#tiles.forEach(tileToMove => 
+            {
+                let y = tileToMove.currentY;
+                if(y > 0 && this.#tiles.filter(maybeEmptyTile => maybeEmptyTile.currentX == tileToMove.currentX && maybeEmptyTile.currentY == tileToMove.currentY - 1) == [])
+                    this.#moveTile(tileToMove, tileToMove.currentX, tileToMove.currentY - 1);
+            });
+
+        if(eventcode === 'ArrowDown')
+            this.#tiles.forEach(tileToMove => 
+            {
+                let x = tileToMove.currentX;
+                let y = tileToMove.currentY;
+                let emptySpace = this.#findEmptySpace();
+                
+                if((y < this.#fieldSize - 2 && tileToMove.currentX == emptySpace.x && tileToMove.currentY + 1 == emptySpace.y) || 
+                    (x == this.#fieldSize - 1 && y == this.#fieldSize - 1 && this.#findEmptySpace().x == -1))
+                        this.#moveTile(tileToMove, tileToMove.currentX, tileToMove.currentY + 1);
+            });
+
+        if(eventcode === 'ArrowLeft')
+            this.#tiles.forEach(tileToMove => 
+            {
+                let x = tileToMove.style.getPropertyValue('--x');
+                let y = tileToMove.style.getPropertyValue('--y');
+                if(x > 0 && y < fieldSizeCount)
+                    tileToMove.style.setProperty('--x', +x - +1);
+            });
+
+        if(eventcode === 'ArrowRight')
+            this.#tiles.forEach(tileToMove => 
+            {
+                let x = tileToMove.style.getPropertyValue('--x');
+                if(x < fieldSizeCount - 1)
+                    tileToMove.style.setProperty('--x', +x + +1);
+            });
+    }
+
+    #moveTile(tileToMove, toX, toY)
+    {
+        tileToMove.currentX = toX;
+        tileToMove.currentY = toY;
+
+        let element = document.getElementById(tileToMove.tileId);
+        element.setAttribute('x', toX);
+        element.setAttribute('y', toY);
+        element.style = `--x: ${toX}; --y: ${toY}`;
+    }
+
     get tiles()
     {
         var tilesClasses = document.getElementsByClassName("tile")

@@ -1,7 +1,7 @@
 import TileBrain from "/scripts/TileBrain.js";
 
 
-var fieldLength = 5;
+var fieldLength = 3;
 var rootReadOnly = window.getComputedStyle(document.documentElement);
 var root = document.documentElement.style;
 root.setProperty('--field-size', fieldLength * parseInt(rootReadOnly.getPropertyValue('--tile-size').split('px')[0]) + 'px');
@@ -21,39 +21,7 @@ window.addEventListener("keydown", event => {
     if(!isTimingOk())
     return;
 
-    if(event.code === 'ArrowUp')
-        tiles.forEach(tile => 
-        {
-            let y = tile.style.getPropertyValue('--y');
-            if(y > 0 )
-                tile.style.setProperty('--y', +y - +1);
-        });
-
-    if(event.code === 'ArrowDown')
-        tiles.forEach(tile => 
-        {
-            let x = tile.style.getPropertyValue('--x');
-            let y = tile.style.getPropertyValue('--y');
-            if(y < fieldSizeCount - 1 || x == fieldSizeCount - 1 && y == fieldSizeCount - 1)
-                tile.style.setProperty('--y', +y + +1);
-        });
-
-    if(event.code === 'ArrowLeft')
-        tiles.forEach(tile => 
-        {
-            let x = tile.style.getPropertyValue('--x');
-            let y = tile.style.getPropertyValue('--y');
-            if(x > 0 && y < fieldSizeCount)
-                tile.style.setProperty('--x', +x - +1);
-        });
-
-    if(event.code === 'ArrowRight')
-        tiles.forEach(tile => 
-        {
-            let x = tile.style.getPropertyValue('--x');
-            if(x < fieldSizeCount - 1)
-                tile.style.setProperty('--x', +x + +1);
-        });
+    tileBrain.moveTile(event.code);
 });
 
 function isTimingOk()
