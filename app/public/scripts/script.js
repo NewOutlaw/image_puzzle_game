@@ -1,7 +1,7 @@
 import TileBrain from "/scripts/TileBrain.js";
 
 
-var fieldLength = 10;
+var fieldLength = 5;
 var rootReadOnly = window.getComputedStyle(document.documentElement);
 var root = document.documentElement.style;
 root.setProperty('--field-size', fieldLength * parseInt(rootReadOnly.getPropertyValue('--tile-size').split('px')[0]) + 'px');
