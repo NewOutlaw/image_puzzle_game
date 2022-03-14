@@ -1,7 +1,10 @@
 import TileBrain from "/scripts/TileBrain.js";
 
 
-var fieldLength = 3;
+var fieldLength = 4;
+var shuffleDepth = 200;
+var transTime = extractNumber(window.getComputedStyle(document.documentElement).getPropertyValue('--trans-time'), 's');
+
 var rootReadOnly = window.getComputedStyle(document.documentElement);
 var root = document.documentElement.style;
 root.setProperty('--field-size', fieldLength * parseInt(rootReadOnly.getPropertyValue('--tile-size').split('px')[0]) + 'px');
@@ -14,11 +17,11 @@ var timestamp = Date.now();
 var imgPath = '/img/moonlanding.jpg';
 //var imgPath = '/img/starwars.jpg';
 
-var tileBrain = new TileBrain(fieldSizeCount, imgPath);
+var tileBrain = new TileBrain(fieldSizeCount, imgPath, shuffleDepth, transTime);
 
 
 window.addEventListener("keydown", event => {
-    
+
     if(!isTimingOk())
         return;
     else
@@ -27,8 +30,6 @@ window.addEventListener("keydown", event => {
 
 function isTimingOk()
 {    
-    var transTime = extractNumber(window.getComputedStyle(document.documentElement).getPropertyValue('--trans-time'), 's');
-
     if(Date.now() - timestamp >= transTime*1000)
     {
         timestamp = Date.now();

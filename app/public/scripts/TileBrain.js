@@ -4,12 +4,16 @@ export default class TileBrain
 {
     #fieldSize;
     #imgPath;
+    #shuffleDepth;
+    #transTime;
     #tiles = [];
 
-    constructor(fieldSize, imgPath)
+    constructor(fieldSize, imgPath, shuffleDepth, transTime)
     {
         this.#fieldSize = fieldSize;
         this.#imgPath = imgPath;
+        this.#shuffleDepth = shuffleDepth;
+        this.#transTime = transTime;
 
         for(var y = 0; y < this.#fieldSize; y++)
             for(var x = 0; x < this.#fieldSize; x++)
@@ -17,8 +21,8 @@ export default class TileBrain
                 this.#tiles.push(new Tile((x*-100).toString() + 'px', (y*-100).toString() + 'px', x, y));
             }
 
-        this.shuffle();
         this.putTilesInDocument();
+        this.shuffle();
 
 
         /*var tiletest = new Tile();
@@ -28,27 +32,25 @@ export default class TileBrain
 
     shuffle()
     {
-        var shuffledTiles = [];
+        //console.log("tt: " + this.#transTime + " " + typeof this.#transTime);
+        var tt = this.#transTime * 1000;
+        console.log(tt);
+        var counter = 0;
+        var shuffleIntervall = setInterval(() => 
+        {
+            var directions = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]
+            var x = Math.floor(Math.random() * 4);
 
-        this.#tiles.forEach(tile => {
-            while(true)
-            {
-                let possibleX = Math.floor(Math.random() * this.#fieldSize);
-                let possibleY = Math.floor(Math.random() * this.#fieldSize);
+            console.log(x);
 
-                var alreadyInPlace = shuffledTiles.filter(t => t.currentX == possibleX && t.currentY == possibleY);
-                if(alreadyInPlace.length == 0)
-                {
-                    tile.currentX = possibleX;
-                    tile.currentY = possibleY;
-                    shuffledTiles.push(tile);
-                    break;
-                }
-            }
-        });
+            this.moveTile(directions[x]);
+            counter++;
+
+            if(counter > this.#shuffleDepth)
+                clearInterval(shuffleIntervall);
+
+        }, this.#transTime * 1000);
         
-        //shuffledTiles.forEach(tile => console.log("tileId: " + tile.tileId + "\tcurrentX: " + tile.currentX + "\tcurrentY: " + tile.currentY + 
-        //   "\tsolvedX: " + tile.solvedX + "\tsolvedY: " + tile.solvedY));
     }
 
     putTilesInDocument()
@@ -77,6 +79,8 @@ export default class TileBrain
 
     moveTile(eventcode)
     {
+        console.log("tt: " + eventcode + " " + typeof eventcode);
+
         if(eventcode === 'ArrowUp')
             for(var i = 0; i < this.#tiles.length; i++)
             {
@@ -93,7 +97,7 @@ export default class TileBrain
         if(eventcode === 'ArrowDown')
             for(var i = 0; i < this.#tiles.length; i++)
             {
-                //console.log("Arrow down: current tile: x" + this.#tiles[i].currentX + " y" + this.#tiles[i].currentY);
+                console.log("Arrow down: current tile: x" + this.#tiles[i].currentX + " y" + this.#tiles[i].currentY);
 
                 let tx = this.#tiles[i].currentX;
                 let ty = this.#tiles[i].currentY;
