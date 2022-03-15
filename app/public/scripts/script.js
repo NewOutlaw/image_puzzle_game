@@ -20,13 +20,49 @@ var imgPath = '/img/moonlanding.jpg';
 var tileBrain = new TileBrain(fieldSizeCount, imgPath, shuffleDepth, transTime);
 
 
-window.addEventListener("keydown", event => {
-
+window.addEventListener("keydown", event => 
+{
     if(!isTimingOk())
         return;
     else
         tileBrain.moveTile(event.code);
 });
+
+var touchStart;
+var touchEnd;
+document.body.addEventListener('touchstart', (e) => 
+{
+    touchStart = e.touches[0];
+});
+document.body.addEventListener('touchmove', (e) => 
+{
+    touchEnd = e.touches[e.touches.length-1];
+});
+document.body.addEventListener('touchend', (e) => 
+{
+    tileBrain.moveTile(getDirectionFromSwipe(touchStart, touchEnd));
+});
+
+function getDirectionFromSwipe(first, second)
+{
+    var xSwipe = second.screenX - first.screenX;
+    var ySwipe = second.screenY - first.screenY;
+
+    if(Math.abs(xSwipe) > Math.abs(ySwipe))
+    {
+        if(xSwipe > 0)
+            return "ArrowRight";
+        else
+            return "ArrowLeft";
+    }
+    else
+    {
+        if(ySwipe > 0)
+            return "ArrowDown";
+        else
+            return "ArrowUp";
+    }
+}
 
 function isTimingOk()
 {    

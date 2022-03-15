@@ -22,7 +22,7 @@ export default class TileBrain
             }
 
         this.putTilesInDocument();
-        this.shuffle();
+        //this.shuffle();
 
 
         /*var tiletest = new Tile();

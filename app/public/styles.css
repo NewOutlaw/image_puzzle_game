@@ -5,6 +5,10 @@
     --trans-time: 0.1s;
 }
 
+body {
+    overscroll-behavior: none;
+}
+
 #board {
     background-color: steelblue;
     margin: calc(100vh / 2 - (var(--board-size) + var(--tile-size)) / 2) auto;
