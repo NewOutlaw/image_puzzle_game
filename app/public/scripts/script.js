@@ -19,6 +19,10 @@ var imgPath = '/img/moonlanding.jpg';
 
 var tileBrain = new TileBrain(fieldSizeCount, imgPath, shuffleDepth, transTime);
 
+document.getElementById("shuffle-btn").addEventListener("click", (e) => 
+{
+    tileBrain.shuffle();
+});
 
 window.addEventListener("keydown", event => 
 {

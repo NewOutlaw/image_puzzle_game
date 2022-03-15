@@ -2,6 +2,7 @@ import Tile from "/scripts/Tile.js";
 
 export default class TileBrain 
 {
+    #isShuffling = false;
     #fieldSize;
     #imgPath;
     #shuffleDepth;
@@ -32,6 +33,7 @@ export default class TileBrain
 
     shuffle()
     {
+        this.#isShuffling = true;
         //console.log("tt: " + this.#transTime + " " + typeof this.#transTime);
         var tt = this.#transTime * 1000;
         console.log(tt);
@@ -47,7 +49,10 @@ export default class TileBrain
             counter++;
 
             if(counter > this.#shuffleDepth)
+            {
                 clearInterval(shuffleIntervall);
+                this.#isShuffling = false;
+            }
 
         }, this.#transTime * 1000);
         
@@ -82,6 +87,7 @@ export default class TileBrain
         console.log("tt: " + eventcode + " " + typeof eventcode);
 
         if(eventcode === 'ArrowUp')
+        {
             for(var i = 0; i < this.#tiles.length; i++)
             {
                 let tx = this.#tiles[i].currentX;
@@ -93,8 +99,11 @@ export default class TileBrain
                     break;
                 }
             };
+            this.#isItSolved()
+        }
 
         if(eventcode === 'ArrowDown')
+        {
             for(var i = 0; i < this.#tiles.length; i++)
             {
                 console.log("Arrow down: current tile: x" + this.#tiles[i].currentX + " y" + this.#tiles[i].currentY);
@@ -110,8 +119,11 @@ export default class TileBrain
                         break;
                     }
             };
+            this.#isItSolved()
+        }
 
         if(eventcode === 'ArrowLeft')
+        {
             for(var i = 0; i < this.#tiles.length; i++)
             {
                 let tx = this.#tiles[i].currentX;
@@ -123,8 +135,11 @@ export default class TileBrain
                     break;
                 }
             };
+            this.#isItSolved()
+        }
 
         if(eventcode === 'ArrowRight') 
+        {
             for(var i = 0; i < this.#tiles.length; i++)
             {
                 let tx = this.#tiles[i].currentX;
@@ -136,6 +151,34 @@ export default class TileBrain
                     break;
                 }
             };
+            this.#isItSolved()
+        }
+    }
+
+    #isItSolved()
+    {
+        if(this.#isShuffling)
+            return;
+
+        var solved = true;
+        this.#tiles.forEach(tile => 
+        {
+            if(tile.currentX != tile.solvedX || tile.currentY != tile.solvedY)
+            {
+                solved = false;
+                return;
+            }
+        });
+
+        if(solved)
+        {
+            setTimeout(() => {
+                console.log("WINNER WINNER CHICKEN DINNER");
+                window.alert("WINNER WINNER CHICKEN DINNER");
+            }, 200);
+        }
+        else
+            console.log("nope");
     }
 
     #findEmptySpace()

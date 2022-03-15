@@ -64,3 +64,11 @@ body {
     height: var(--field-size);
 }
 
+#shuffle-btn {
+    left: 30px;
+    bottom: 20px;
+    width: 100px;
+    height: 40px;
+    background-color: darkgoldenrod;
+}
+
