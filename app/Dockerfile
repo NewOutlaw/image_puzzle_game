@@ -10,7 +10,7 @@ ENV PORT_LIVE=80
 ENV URL_LOCAL=http://localhost:
 ENV PORT_LOCAL=3000
 
-ENV LIVE_OR_LOCAL=local
-#ENV LIVE_OR_LOCAL=live
+#ENV LIVE_OR_LOCAL=local
+ENV LIVE_OR_LOCAL=live
 
 RUN npm install
