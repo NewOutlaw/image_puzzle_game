@@ -1,10 +1,24 @@
-version: '3'
+version: '3.7'
 
 services: 
     node:
-        container_name: shiftpuzzle
-        build: ./app
+        container_name: ${CONTAINER_NAME}
+        build: ./
+        restart: ${RESTART_CONTAINER}
+        networks:
+            - custom_network
         ports:
-            - "3001:3001"
+            - ${CONTAINER_PORTS}
+        volumes:
+            - ${VOLUME_SRC}:/app
         env_file: ${ENV_FILE_PATH}
-        command: ["node", "index.js"]
+        command: ${START_COMMAND}
+        
+
+networks:
+    custom_network:
+        name: custom_network
+        external: true # For pre built networks
+        # docker network create -d bridge NETWORK_NAME
+        # https://docs.docker.com/network/bridge/ ->
+        # "User-defined bridges provide automatic DNS resolution between containers."
