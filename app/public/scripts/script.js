@@ -1,4 +1,4 @@
-import TileBrain from "/scripts/TileBrain.js";
+import TileBrain from "./TileBrain.js";
 
 
 var fieldLength = 4;

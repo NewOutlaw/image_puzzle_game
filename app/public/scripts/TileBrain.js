@@ -84,76 +84,46 @@ export default class TileBrain
 
     moveTile(eventcode)
     {
-        console.log("tt: " + eventcode + " " + typeof eventcode);
-
-        if(eventcode === 'ArrowUp')
+        for(const tile of this.#tiles)
         {
-            for(var i = 0; i < this.#tiles.length; i++)
+            let tx = tile.currentX;
+            let ty = tile.currentY;
+            let emptySpace = this.#findEmptySpace();
+            
+            switch(eventcode)
             {
-                let tx = this.#tiles[i].currentX;
-                let ty = this.#tiles[i].currentY;
-                let emptySpace = this.#findEmptySpace();
-                if(ty > 0 && tx == emptySpace.x && ty - 1 == emptySpace.y)
-                {
-                    this.#moveTile(this.#tiles[i].tileId, emptySpace.x, emptySpace.y);
-                    break;
-                }
-            };
-            this.#isItSolved()
-        }
-
-        if(eventcode === 'ArrowDown')
-        {
-            for(var i = 0; i < this.#tiles.length; i++)
-            {
-                console.log("Arrow down: current tile: x" + this.#tiles[i].currentX + " y" + this.#tiles[i].currentY);
-
-                let tx = this.#tiles[i].currentX;
-                let ty = this.#tiles[i].currentY;
-                let emptySpace = this.#findEmptySpace();
-                
-                if((ty <= this.#fieldSize - 2 && tx == emptySpace.x && ty + 1 == emptySpace.y) || 
-                    (tx == this.#fieldSize - 1 && ty == this.#fieldSize - 1 && emptySpace.y == this.#fieldSize))
+                case 'ArrowUp':
+                    if(ty > 0 && tx == emptySpace.x && ty - 1 == emptySpace.y)
                     {
-                        this.#moveTile(this.#tiles[i].tileId, emptySpace.x, emptySpace.y);
+                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y);
                         break;
                     }
-            };
-            this.#isItSolved()
-        }
 
-        if(eventcode === 'ArrowLeft')
-        {
-            for(var i = 0; i < this.#tiles.length; i++)
-            {
-                let tx = this.#tiles[i].currentX;
-                let ty = this.#tiles[i].currentY;
-                let emptySpace = this.#findEmptySpace();
-                if(tx > 0 && tx - 1 == emptySpace.x && ty == emptySpace.y)
-                {
-                    this.#moveTile(this.#tiles[i].tileId, emptySpace.x, emptySpace.y);
-                    break;
-                }
-            };
-            this.#isItSolved()
-        }
+                case 'ArrowDown':
+                    if((ty <= this.#fieldSize - 2 && tx == emptySpace.x && ty + 1 == emptySpace.y) || (tx == this.#fieldSize - 1 && ty == this.#fieldSize - 1 && emptySpace.y == this.#fieldSize))
+                    {
+                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y);
+                        break;
+                    }
 
-        if(eventcode === 'ArrowRight') 
-        {
-            for(var i = 0; i < this.#tiles.length; i++)
-            {
-                let tx = this.#tiles[i].currentX;
-                let ty = this.#tiles[i].currentY;
-                let emptySpace = this.#findEmptySpace();
-                if(tx <= this.#fieldSize - 2 && tx + 1 == emptySpace.x && ty == emptySpace.y)
-                {
-                    this.#moveTile(this.#tiles[i].tileId, emptySpace.x, emptySpace.y);
-                    break;
-                }
-            };
-            this.#isItSolved()
-        }
+                case 'ArrowLeft':
+                    if(tx > 0 && tx - 1 == emptySpace.x && ty == emptySpace.y)
+                    {
+                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y);
+                        break;
+                    }
+
+                case 'ArrowRight':
+                    if(tx <= this.#fieldSize - 2 && tx + 1 == emptySpace.x && ty == emptySpace.y)
+                    {
+                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y);
+                        break;
+                    }
+            } 
+
+        };
     }
+
 
     #isItSolved()
     {
