@@ -86,40 +86,49 @@ export default class TileBrain
     {
         for(const tile of this.#tiles)
         {
-            let tx = tile.currentX;
-            let ty = tile.currentY;
+            let tileX = tile.currentX;
+            let tileY = tile.currentY;
             let emptySpace = this.#findEmptySpace();
+
+            var move_done = false;
             
             switch(eventcode)
             {
                 case 'ArrowUp':
-                    if(ty > 0 && tx == emptySpace.x && ty - 1 == emptySpace.y)
+                    if(tileY > 0 && tileX == emptySpace.x && tileY - 1 == emptySpace.y)
                     {
-                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y);
-                        break;
+                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y); 
+                        move_done = true;
                     }
+                    break;
 
                 case 'ArrowDown':
-                    if((ty <= this.#fieldSize - 2 && tx == emptySpace.x && ty + 1 == emptySpace.y) || (tx == this.#fieldSize - 1 && ty == this.#fieldSize - 1 && emptySpace.y == this.#fieldSize))
+                    if((tileY <= this.#fieldSize - 2 && tileX == emptySpace.x && tileY + 1 == emptySpace.y) || (tileX == this.#fieldSize - 1 && tileY == this.#fieldSize - 1 && emptySpace.y == this.#fieldSize))
                     {
-                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y);
-                        break;
+                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y); 
+                        move_done = true;
                     }
+                    break;
 
                 case 'ArrowLeft':
-                    if(tx > 0 && tx - 1 == emptySpace.x && ty == emptySpace.y)
+                    if(tileX > 0 && tileX - 1 == emptySpace.x && tileY == emptySpace.y)
                     {
-                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y);
-                        break;
+                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y); 
+                        move_done = true;
                     }
+                    break;
 
                 case 'ArrowRight':
-                    if(tx <= this.#fieldSize - 2 && tx + 1 == emptySpace.x && ty == emptySpace.y)
+                    if(tileX <= this.#fieldSize - 2 && tileX + 1 == emptySpace.x && tileY == emptySpace.y)
                     {
-                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y);
-                        break;
+                        this.#moveTile(tile.tileId, emptySpace.x, emptySpace.y); 
+                        move_done = true;
                     }
+                    break;
             } 
+            
+            if(move_done)
+                break;
 
         };
     }
