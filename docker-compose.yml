@@ -3,7 +3,19 @@ services:
         container_name: ${CONTAINER_NAME}
         build: ./
         restart: ${RESTART_CONTAINER}
+        networks:
+            - custom_network
         ports:
             - ${CONTAINER_PORTS}
         env_file: ${ENV_FILE_PATH}
         command: ${START_COMMAND}
+
+                
+
+networks:
+    custom_network:
+        name: custom_network
+        external: true # For pre built networks
+        # docker network create -d bridge NETWORK_NAME
+        # https://docs.docker.com/network/bridge/ ->
+        # "User-defined bridges provide automatic DNS resolution between containers."
