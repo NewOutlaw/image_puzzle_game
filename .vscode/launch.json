@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "attach",
-            "name": "Dbg shiftpuzzle",
+            "name": "Debug image puzzle game",
             "port": 3021,
             "address": "localhost",
             "localRoot": "${workspaceFolder}/app",
