@@ -29,7 +29,7 @@ window.addEventListener("keydown", event =>
     if(!isTimingOk())
         return;
     else
-        tileBrain.moveTile(event.code);
+        tileBrain.moveTile(event.key);
 });
 
 var touchStart;

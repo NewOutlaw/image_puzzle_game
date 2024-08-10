@@ -12,7 +12,6 @@
             "address": "localhost",
             "localRoot": "${workspaceFolder}/app",
             "remoteRoot": "/app",
-            //"protocol": "inspector",
             "envFile": "${workspaceFolder}/envs/.env.local"
         }
     ]
