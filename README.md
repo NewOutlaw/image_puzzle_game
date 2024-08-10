@@ -14,12 +14,18 @@ I use it as some kind of .conf file for the project With all the global variable
 
 This weird way of giving the .env.file to the container works as follows:
 #### docker compose command:
-    It has to be specified in this command, that the docker-compose.yaml file can read the env vars for building the container
-#### docker-compose.yaml env_file
-    Here the path to the file must be specified that certain variables could be read from within the project
+It has to be specified in this command, that the docker-compose.yml file can read the env vars for building the container
+#### docker-compose.yml env_file
+Here the path to the file must be specified that certain variables could be read from within the project
 #### .env.file ENV_FILE_PATH-Variable
-    For better use, docker-compose.yaml takes the path from the .env.file out of the .env.file.
-    This way docker-compose.yaml stays untouched (git) for different container purposes as local, test and prod which are specified as own .env.local .env.test .env.prod files
+For better use, docker-compose.yml takes the path from the .env.file out of the .env.file.
+This way docker-compose.yml stays untouched (git) for different container purposes as local, test and prod which are specified as own .env.local .env.test .env.prod files
 
-### /app Volume
-    The app folder will be volumed out for debugging purposes
+
+## Test it
+https://shiftpuzzle.brophet.de
+
+Click of shuffle to, you know, shuffle...
+Play with ArrowKeys or by swipe on smartphone.
+There is no "win detection".
+(It shuffles like this, because I fould out certain random tileplacements for shuffling would not be solvable, but I cant proof)
