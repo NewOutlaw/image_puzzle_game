@@ -65,10 +65,11 @@ body {
 }
 
 #shuffle-btn {
-    left: 30px;
-    bottom: 20px;
+    position: relative;
+    left: calc((var(--board-size) - var(--field-size)) / 2);
+    top: calc(var(--board-size));
     width: 100px;
     height: 40px;
-    background-color: darkgoldenrod;
+    background-color: #8946b9;
 }
 
